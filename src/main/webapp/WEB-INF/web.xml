@@ -1,0 +1,31 @@
+<!DOCTYPE web-app PUBLIC
+ "-//Sun Microsystems, Inc.//DTD Web Application 2.3//EN"
+ "http://java.sun.com/dtd/web-app_2_3.dtd" >
+
+<web-app>
+	<display-name>Archetype Created Web Application</display-name>
+	
+	<servlet>
+		<servlet-name>ChatServlet</servlet-name>
+		<servlet-class>org.nerv.servlets.ChatServlet</servlet-class>
+	</servlet>
+	<servlet>
+		<servlet-name>CommandServlet</servlet-name>
+		<servlet-class>org.nerv.servlets.CommandServlet</servlet-class>
+	</servlet>
+	
+	
+	
+	
+	
+	<servlet-mapping>
+		<servlet-name>ChatServlet</servlet-name>
+		<url-pattern>/ChatServlet</url-pattern>
+	</servlet-mapping>
+	<servlet-mapping>
+		<servlet-name>CommandServlet</servlet-name>
+		<url-pattern>/addMessage</url-pattern>
+	</servlet-mapping>
+	
+	
+</web-app>
