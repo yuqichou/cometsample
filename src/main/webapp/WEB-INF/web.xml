@@ -13,10 +13,21 @@
 		<servlet-name>CommandServlet</servlet-name>
 		<servlet-class>org.nerv.servlets.CommandServlet</servlet-class>
 	</servlet>
+	<servlet>
+		<servlet-name>ChatCommandServlet</servlet-name>
+		<servlet-class>com.threeti.ics.web.servlet.ChatCommandServlet</servlet-class>
+	</servlet>
+	<servlet>
+		<servlet-name>MessagePusherServlet</servlet-name>
+		<servlet-class>com.threeti.ics.web.servlet.MessagePusherServlet</servlet-class>
+	</servlet>
 	
 	
 	
-	
+	<servlet-mapping>
+		<servlet-name>ChatCommandServlet</servlet-name>
+		<url-pattern>/sendCommand</url-pattern>
+	</servlet-mapping>
 	
 	<servlet-mapping>
 		<servlet-name>ChatServlet</servlet-name>
@@ -26,6 +37,9 @@
 		<servlet-name>CommandServlet</servlet-name>
 		<url-pattern>/addMessage</url-pattern>
 	</servlet-mapping>
-	
+	<servlet-mapping>
+		<servlet-name>MessagePusherServlet</servlet-name>
+		<url-pattern>/pullMessage</url-pattern>
+	</servlet-mapping>
 	
 </web-app>

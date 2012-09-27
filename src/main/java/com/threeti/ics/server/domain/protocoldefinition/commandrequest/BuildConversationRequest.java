@@ -1,10 +1,5 @@
 package com.threeti.ics.server.domain.protocoldefinition.commandrequest;
 
-import com.threeti.ics.server.domain.protocoldefinition.Conversation;
-import com.threeti.ics.server.domain.protocoldefinition.ConversationStatus;
-import com.threeti.ics.server.domain.protocoldefinition.ConversationTopic;
-
-import java.util.Date;
 
 /**
  * Created by IntelliJ IDEA.
@@ -60,21 +55,4 @@ public class BuildConversationRequest {
         this.description = description;
     }
 
-    public ConversationTopic getTopic() {
-        ConversationTopic result = new ConversationTopic();
-        result.setPicture(picture);
-        result.setDescription(description);
-        result.setProductId(productId);
-        result.setProductName(productName);
-        return result;
-    }
-
-     public Conversation getConversation() {
-        Conversation result = new Conversation();
-        result.setTopic(getTopic());
-        result.setCreateDate(new Date());
-        result.setStatus(ConversationStatus.NOTACCEPTED);
-        result.setVisitor(serviceToken);
-        return result;
-    }
 }
