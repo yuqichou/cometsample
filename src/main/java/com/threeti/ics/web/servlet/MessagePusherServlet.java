@@ -45,6 +45,7 @@ public class MessagePusherServlet extends HttpServlet implements CometProcessor{
 						continue;
 					}
 					synchronized (onlineMap) {
+						System.out.println("current online user: "+onlineMap.size());
 						HttpServletResponse response = onlineMap.get(serviceToken);
 						if(response!=null){
 							try {
