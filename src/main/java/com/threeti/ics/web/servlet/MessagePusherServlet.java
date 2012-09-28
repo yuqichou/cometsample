@@ -79,7 +79,7 @@ public class MessagePusherServlet extends HttpServlet implements CometProcessor{
         HttpServletResponse response = event.getHttpServletResponse();
         String uid = request.getParameter("uid");
         String serviceToken = null;
-        event.setTimeout(1000*30);
+        event.setTimeout(1000*15);
         
         if(uid==null){
         	response.getWriter().close();
