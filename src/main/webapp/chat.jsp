@@ -307,7 +307,7 @@
     		var serviceToken=jsonData.serviceToken;
     		if(serviceToken!=null){
     			$("#serviceToken").val(serviceToken);
-    			alert("会话已建立!!!");
+    			alert("service token 注册成功!!!");
     			buildConversation();
     		}
     	}
@@ -318,7 +318,7 @@
     			$("#conversationId").val(conversationId);
     			$("#connBtn").hide();
     			$("#sendBtn").show();
-    			alert("可以聊天了!");
+    			alert("会话已建立 可以聊天了!");
     		}
     	}
     	
