@@ -15,7 +15,8 @@ public class BuildConversationHandler extends BaseMessageHandler{
 	public String getType() {
 		return ProtocolTypeEnum.BUILDCONVERSATION.getName();
 	}
-
+	
+	
 	@Override
 	public Object handleMessage(Object object, IoSession ioSession) {
 		if(object instanceof Map){
@@ -39,14 +40,11 @@ public class BuildConversationHandler extends BaseMessageHandler{
 			}
 		}
 		
-		
-		
-		
-		
-		
-		
-		
 		return null;
 	}
+	
+	
+
+
 
 }

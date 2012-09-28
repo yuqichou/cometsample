@@ -37,7 +37,7 @@ public class TestMain {
 	
 	@Before
 	public void init(){
-		client=SocketClient.getInstance();
+		client=new SocketClient();
 	}
 	
 	@Test
@@ -50,6 +50,11 @@ public class TestMain {
 			}
 			public Object handleMessage(Object object,IoSession ioSession) {
 				System.out.println("test_SdkVerification====+++++++++++++++"+object);
+				return null;
+			}
+			@Override
+			public String getHanderName() {
+				// TODO Auto-generated method stub
 				return null;
 			}
 		});
@@ -82,6 +87,11 @@ public class TestMain {
 				
 				return null;
 			}
+			@Override
+			public String getHanderName() {
+				// TODO Auto-generated method stub
+				return null;
+			}
 		});
 		
 		
@@ -91,6 +101,11 @@ public class TestMain {
 			}
 			public Object handleMessage(Object object,IoSession ioSession) {
 				System.out.println("test_messagetransfer============="+object);
+				return null;
+			}
+			@Override
+			public String getHanderName() {
+				// TODO Auto-generated method stub
 				return null;
 			}
 		});
@@ -137,6 +152,11 @@ public class TestMain {
 			}
 			public Object handleMessage(Object object,IoSession ioSession) {
 				System.out.println("test_messagelist============="+object);
+				return null;
+			}
+			@Override
+			public String getHanderName() {
+				// TODO Auto-generated method stub
 				return null;
 			}
 		});

@@ -29,5 +29,9 @@ public abstract class BaseMessageHandler implements MessageHandler {
 		registerSessions.add(ioSession);
 	}
 	
+	@Override
+	public String getHanderName() {
+		return this.getClass().getSimpleName();
+	}
 	
 }

@@ -18,6 +18,15 @@
 			body {
 				margin: 30px;
 			}
+			#content{
+				width:96%;
+				height:500px;
+				overflow-y:scroll;
+				border:1px solid #ccc;
+				padding:2%;
+				line-height:25px;
+				margin-bottom: 10px;
+			}
 		</style>
     </head>
     
@@ -27,7 +36,7 @@
 		<div class="row-fluid">
 		 	<div class="row">
 				 <div class="row-fluid">
-					<div class="span3">
+					<div class="span2">
 							<fieldset>
 								
 								<div class="control-group">
@@ -35,7 +44,7 @@
 											<span class="label label-important">prId</span>
 									</label>
 									<div class="controls">
-										<input id="prId" value="2222" type="text" />
+										<input id="prId" value="2000" type="text" />
 									</div>
 								</div>
 								
@@ -72,7 +81,7 @@
 											<span class="label label-important">productName</span>
 									</label>
 									<div class="controls">
-										<input id="productName" value="测试Chou" type="text" />
+										<input id="productName" value="测试" type="text" />
 									</div>
 								</div>
 								
@@ -120,18 +129,21 @@
 							</fieldset>
 					</div>
 					<div class="span9">
-					<fieldset>
-								<div class="control-group">
-									<div class="controls">
-										<textarea readonly="readonly" style="width:100%" id="content" rows="16" cols="70"></textarea>
+								<fieldset style="margin-left: 30px;">
+									<div class="control-group">
+										<div class="controls">
+											<!-- <textarea readonly="readonly" style="width:100%" id="content" rows="25" cols="70"></textarea>-->
+											<div id="content" class="span9">
+																							
+											</div>
+										</div>
+										<div class="controls">
+											<textarea id="sendContent" style="width:40%" rows="5" cols=""></textarea>
+										</div>
+										<div class="controls">
+											<a id="sendBtn" style="display: none;"  onclick="sendMessage()" class="btn btn-primary">发送</a>
+										</div>
 									</div>
-									<div class="controls">
-										<textarea id="sendContent" style="width:40%" rows="5" cols=""></textarea>
-									</div>
-									<div class="controls">
-										<a id="sendBtn" style="display: none;" onclick="sendMessage()" class="btn btn-primary">发送</a>
-									</div>
-								</div>
 								</fieldset>
 					</div>
 				</div>
@@ -143,9 +155,7 @@
 	
     </body>
     
-    <script type="text/javascript">
-   		 $("#uid").val($.cookie('uid'));
-    </script>
+   
     <script type="text/javascript">
 	    function debug(obj){
 			var s="";
@@ -207,12 +217,39 @@
     		var sendName=obj.sendName;
 			var textBody=obj.textBody;
 			var dateString=obj.dateString;
+			var type=obj.type;
+			
+			
 			var mes="";
 			mes+=sendName+"  说:\n";
 			mes+=textBody;
 			
-    		$("#content").val($("#content").val()+mes);
-    		$("#content").val($("#content").val()+"\n\n");
+			var color="";
+			if(sendName!='我'){
+				color='#F5F5E5';
+			}else{
+				color='#F5F5F5';
+			}
+			
+			if(!dateString){
+				dateString=getDateString();
+			}
+			
+			var appendData="";
+			if('image'==type){
+				appendData="<dl style='background-color:"+color+"' class='well'><dt>"+sendName+"  "+dateString+" :</dt><dd><img src='"+textBody+"'/></dd></dl>";
+			}else{
+				appendData="<dl style='background-color:"+color+"' class='well'><dt>"+sendName+"  "+dateString+" :</dt><dd>"+textBody+"</dd></dl>";
+			}
+			
+			
+			
+
+			var pcontent = $('#content');
+			pcontent.append(appendData);
+			pcontent.scrollTop(
+					pcontent[0].scrollHeight - pcontent.height()
+					);
     	}
     	
     	
@@ -260,6 +297,8 @@
     		appendMessage({
 				sendName:from,
 				textBody:messageBody,
+				dateString:dateString,
+				type:type,
 				dateString:dateString
 			});
     	}
@@ -268,6 +307,7 @@
     		var serviceToken=jsonData.serviceToken;
     		if(serviceToken!=null){
     			$("#serviceToken").val(serviceToken);
+    			alert("会话已建立!!!");
     			buildConversation();
     		}
     	}
@@ -283,6 +323,20 @@
     	}
     	
     </script>
+    
+     <script type="text/javascript">
+   		 $("#uid").val($.cookie('uid'));
+   		 
+   		 function getDateString(){
+   			var date=new Date();   
+   			return date.getFullYear()+ "-"+(date.getMonth()+1)+ "-"+date.getDate()+ " "+date.getHours()+":"+date.getMinutes()+":"+date.getSeconds();
+   		 }
+   		 
+    </script>
+    
+    
+    
+    
     
     
     

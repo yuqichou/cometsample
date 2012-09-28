@@ -96,10 +96,8 @@ public class MessagePusherServlet extends HttpServlet implements CometProcessor{
         	}
         }
         
-        System.out.println("find serviceToken========="+serviceToken);
         
         if (event.getEventType() == CometEvent.EventType.BEGIN) {
-            System.out.println("Begin for session: " + serviceToken);
             synchronized (onlineMap) {
             	onlineMap.put(serviceToken, response);
 			}
@@ -110,7 +108,6 @@ public class MessagePusherServlet extends HttpServlet implements CometProcessor{
 			}
             event.close();
         } else if (event.getEventType() == CometEvent.EventType.END) {
-        	System.out.println("End for session: " + serviceToken);
             synchronized (onlineMap) {
             	onlineMap.remove(serviceToken);
 			}

@@ -1,8 +1,8 @@
 package com.threeti.ics.server.service;
 
-import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
+import java.util.HashSet;
+import java.util.Set;
 
 import org.apache.mina.core.session.IoSession;
 
@@ -12,10 +12,10 @@ public class MessageHandlerService {
 	
 	private static MessageHandlerService instance;
 	
-	private static List<MessageHandler> handlers;
+	private static Set<MessageHandler> handlers;
 	
 	private MessageHandlerService() {
-		handlers=new ArrayList<MessageHandler>();
+		handlers=new HashSet<MessageHandler>();
 	}
 	
 	public static MessageHandlerService getInstance() {
@@ -26,12 +26,23 @@ public class MessageHandlerService {
 	}
 	
 	public void addHandler(MessageHandler handler){
-		handlers.add(handler);
+		boolean has=false;
+		for (MessageHandler tempHandler : handlers) {
+			if(tempHandler.getHanderName().equals(handler.getHanderName())){
+				has=true;
+				break;
+			}
+		}
+		if(!has){
+			handlers.add(handler);
+		}
+		
 	}
 	
 	
 	@SuppressWarnings("unchecked")
 	public void handleMessage(Object object,IoSession ioSession){
+		
 		if(object==null){
 			return;
 		}

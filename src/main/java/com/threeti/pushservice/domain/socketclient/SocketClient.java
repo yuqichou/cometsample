@@ -23,45 +23,60 @@ public class SocketClient {
     private static final String SERVER_HOST = ServerConfig.SERVER_HOST;
     private static final int PORT = ServerConfig.PORT;
     private static final int TIME_OUT_MILLIS = ServerConfig.TIME_OUT_MILLIS;
-    private static NioSocketConnector connector = new NioSocketConnector();
+    private NioSocketConnector connector = new NioSocketConnector();
     
-    private static SocketClient instance;
+    private IoSession session;
+//    private static SocketClient instance;
     
-    private ConnectFuture cf;
     
-    private SocketClient() {
-	}
-    
-    public static SocketClient getInstance() {
-    	if(instance==null || !connector.isActive()){
-    		instance=new SocketClient();
-    	}
-		return instance;
-	}
+//    public SocketClient() {
+//		}
+//    
+//    public static SocketClient getInstance() {
+//    	if(instance==null || !connector.isActive()){
+//    		instance=new SocketClient();
+//    	}
+//		return instance;
+//	}
     
     
     private ConnectFuture createConnection() {
-    	if(cf!=null){
-    		return cf;
-    	}
-        connector.getFilterChain().addLast("codec", new ProtocolCodecFilter(new TextLineCodecFactory(Charset.forName("UTF-8"), LineDelimiter.WINDOWS.getValue(), LineDelimiter.WINDOWS.getValue())));
+//    	if(cf!=null){
+//    		return cf;
+//    	}
+//    	if(!connector.getFilterChain().contains("codec")){
+    		connector.getFilterChain().addLast("codec", new ProtocolCodecFilter(new TextLineCodecFactory(Charset.forName("UTF-8"), LineDelimiter.WINDOWS.getValue(), LineDelimiter.WINDOWS.getValue())));
+//    	}
+        
+//    	if(connector.getHandler()==null){
+    		connector.setHandler(new SocketClientHandler());
+//    	}
+        
         connector.setConnectTimeoutMillis(TIME_OUT_MILLIS);
-        connector.setHandler(new SocketClientHandler());
-        cf = connector.connect(new InetSocketAddress(SERVER_HOST, PORT));
+        ConnectFuture cf = connector.connect(new InetSocketAddress(SERVER_HOST, PORT));
         cf.awaitUninterruptibly();
         return cf;
     }
+    
+    public IoSession getSession(){
+    	if(session==null){
+    		session=createConnection().getSession();
+    	}
+    	return session;
+    }
 
     public void sendMessage(final String message) {
-        ConnectFuture cf = createConnection();
-        IoSession session = cf.getSession();
-        
-        
+    	getSession();
         System.out.println("messageSend:===>  "+message);
         session.write(message);
 //        session.close(true);
         //closeConnection();
     }
+    
+    
+    
+    
+    		
 
     public void closeConnection() {
         if (connector.isActive()) connector.dispose();

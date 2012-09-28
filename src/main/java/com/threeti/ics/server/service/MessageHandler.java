@@ -12,6 +12,8 @@ import org.apache.mina.core.session.IoSession;
  */
 public interface MessageHandler {
 	
+	public String getHanderName();
+	
 	public String getType();
 	
 	public Object handleMessage(Object object,IoSession ioSession);
